@@ -32,9 +32,29 @@
     </div>
 
     <script>
-        // const clientName = window.prompt("Welcome to Colors! Enter company name:");
+        const palette = [
+        "Charcoal",
+        "264653",
+        "Persian green",
+        "2a9d8f",
+        "Saffron",
+        "e9c46a",
+        "Sandy brown",
+        "f4a261",
+        "Burnt sienna",
+        "e76f51",
+        ]
 
-        // const paletteBtn = document.getElementById("palettebtn");
+        const clientName = window.prompt("Welcome to Colors! Enter company name:");
+        const paletteBtn = document.getElementById("palettebtn");
+        // Selecting node lists with .querySelectorAll()
+        const colorBars = document.querySelectorAll('.rectangle');
+        const changePalette = () => {
+            colorBars.forEach((bar, index) => {
+                bar.textContent = palette[index * 2];
+                // future code
+            })
+        }
 
         // // All rectangles and first div (container) node
         // const colorBars = document.getElementsByTagName('div');
@@ -51,15 +71,6 @@
 
         // first div with container class
         document.querySelector('body div .container');
-
-        // Selecting node lists with .querySelectorAll()
-        const colorBars = document.querySelectorAll('.rectangle');
-
-        const changePalette = () => {
-            colorBars.forEach((rectangleElement, rectangleIndex) => {
-                // future code
-            })
-        }
     </script>
 </body>
 </html>
