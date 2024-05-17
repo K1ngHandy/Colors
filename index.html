@@ -49,9 +49,11 @@
         const paletteBtn = document.getElementById("palettebtn");
         // Selecting node lists with .querySelectorAll()
         const colorBars = document.querySelectorAll('.rectangle');
+        
         const changePalette = () => {
             colorBars.forEach((bar, index) => {
                 bar.textContent = palette[index * 2];
+                bar.title = palette[index * 2] + "- #" + palette[index * 2 + 1];
                 // future code
             })
         }
