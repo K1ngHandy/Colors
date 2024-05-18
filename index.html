@@ -54,7 +54,7 @@
             colorBars.forEach((bar, index) => {
                 bar.textContent = palette[index * 2];
                 bar.title = palette[index * 2] + "- #" + palette[index * 2 + 1];
-                // future code
+                bar.style.backgroundColor = "#" + palette[index * 2 + 1];
             })
         }
 
