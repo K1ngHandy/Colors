@@ -51,7 +51,7 @@
         ]
 
         const clientName = window.prompt("Welcome to Colors! Enter company name:");
-        const paletteBtn = document.getElementById("palettebtn");
+        const paletteBtn = document.getElementById('palettebtn');
         // Selecting node lists with .querySelectorAll()
         const colorBars = document.querySelectorAll('.rectangle');
         
@@ -67,6 +67,12 @@
         const toggleTheme = () => {
             document.querySelector('body').classList.toggle('dark-theme');
         }
+
+        const containerNode = document.querySelector('.container');
+        console.log('These are the children of the flex container:');
+        console.log(containerNode.children);
+        console.log('And this is the parent, with all the siblings:');
+        console.log(containerNode.parentNode);
 
         // // All rectangles and first div (container) node
         // const colorBars = document.getElementsByTagName('div');
