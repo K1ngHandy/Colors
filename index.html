@@ -38,10 +38,10 @@
 
     <script>
         const containerNode = document.querySelector('.container');
-        console.log('These are the children of the flex container:');
-        console.log(containerNode.children);
-        console.log('And this is the parent, with all the siblings:');
-        console.log(containerNode.parentNode);
+        // console.log('These are the children of the flex container:');
+        // console.log(containerNode.children);
+        // console.log('And this is the parent, with all the siblings:');
+        // console.log(containerNode.parentNode);
 
         const palette = [
         "Charcoal",
@@ -56,7 +56,7 @@
         "e76f51",
         ]
 
-        const clientName = window.prompt("Welcome to Colors! Enter company name:");
+        // const clientName = window.prompt("Welcome to Colors! Enter company name:");
 
         const toggleTheme = () => {
             document.querySelector('body').classList.toggle('dark-theme');
@@ -77,7 +77,13 @@
 
         const welcomeMsg = document.createElement('h2');
         const toggleBtn = document.createElement('button');
-        welcomeMsg.textContent = "Welcome" + clientName + ", we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.";
+        
+        welcomeMsg.textContent = "Welcome" + ' ~clientName~' + ", we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.";
+        welcomeMsg.style.border = "1px solid grey";
+        welcomeMsg.style.padding = "0.5em";
+
+        toggleBtn.textContent = "Dark Theme Off";
+        toggleBtn.id = "toggleBtn";
 
         document
             .querySelector('h1')
