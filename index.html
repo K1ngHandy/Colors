@@ -57,19 +57,19 @@
         ]
 
         // const clientName = window.prompt("Welcome to Colors! Enter company name:");
+        const colorBars = document.querySelectorAll('.rectangle');
+        // Select node lists with .querySelectorAll()
+
+        const paletteBtn = document.getElementById('palettebtn');
+        const welcomeMsg = document.createElement('h2');
+        const toggleBtn = document.createElement('button');
+
+        paletteBtn.addEventListener('click', (event) => paletteBtn.changePalette);
+        toggleBtn.addEventListener('click', (event) => toggleBtn.toggleTheme);
 
         const toggleTheme = () => {
             document.querySelector('body').classList.toggle('dark-theme');
         }
-
-        const paletteBtn = document.getElementById('palettebtn');
-        paletteBtn.addEventListener('click', (event) => {
-            paletteBtn.changePalette
-            console.log('Palette');
-        });
-
-        // Selecting node lists with .querySelectorAll()
-        const colorBars = document.querySelectorAll('.rectangle');
         
         const changePalette = () => {
             colorBars.forEach((bar, index) => {
@@ -79,9 +79,6 @@
                 bar.id = palette[index * 2 + 1];
             })
         }
-
-        const welcomeMsg = document.createElement('h2');
-        const toggleBtn = document.createElement('button');
         
         welcomeMsg.textContent = "Welcome" + ' Client' + ", we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.";
         welcomeMsg.style.border = "1px solid grey";
