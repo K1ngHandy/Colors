@@ -63,6 +63,11 @@
         }
 
         const paletteBtn = document.getElementById('palettebtn');
+        paletteBtn.addEventListener('click', (event) => {
+            paletteBtn.changePalette
+            console.log('Palette');
+        });
+
         // Selecting node lists with .querySelectorAll()
         const colorBars = document.querySelectorAll('.rectangle');
         
@@ -78,7 +83,7 @@
         const welcomeMsg = document.createElement('h2');
         const toggleBtn = document.createElement('button');
         
-        welcomeMsg.textContent = "Welcome" + ' ~clientName~' + ", we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.";
+        welcomeMsg.textContent = "Welcome" + ' Client' + ", we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.";
         welcomeMsg.style.border = "1px solid grey";
         welcomeMsg.style.padding = "0.5em";
 
