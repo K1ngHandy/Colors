@@ -87,6 +87,13 @@
         toggleBtn.textContent = "Dark Theme Off";
         toggleBtn.id = "toggleBtn";
 
+        const hover = document.querySelectorAll('.rectangle');
+        hover.forEach(rectangle => {
+            rectangle.addEventListener('mouseover', (event) => {
+                console.log(rectangle.style.backgroundColor);
+            });
+        });
+
         document
             .querySelector('h1')
             .insertAdjacentElement('afterend', welcomeMsg);
