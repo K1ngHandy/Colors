@@ -87,10 +87,15 @@
         toggleBtn.textContent = "Dark Theme Off";
         toggleBtn.id = "toggleBtn";
 
+        const infoBox = document.createElement('div');
+        infoBox.setAttribute('id', 'info-box');
+
         const hover = document.querySelectorAll('.rectangle');
         hover.forEach(rectangle => {
             rectangle.addEventListener('mouseover', (event) => {
-                console.log(rectangle.style.backgroundColor);
+                const backgroundColor = window.getComputedStyle(event.target).backgroundColor;
+                const color = window.getComputedStyle(event.target).
+                infoBox.textContent = backgroundColor;
             });
         });
 
