@@ -30,10 +30,10 @@
     <button type="button" id="palettebtn">Change Palette</button>
     <div class="container">
         // inline type mouseover
-        <div class="rectangle" mouseover="showInfo()"></div>
-        <div class="rectangle" mouseover="showInfo()"></div>
-        <div class="rectangle" mouseover="showInfo()"></div>
-        <div class="rectangle" mouseover="showInfo()"></div>
+        <div class="rectangle"></div>
+        <div class="rectangle"></div>
+        <div class="rectangle"></div>
+        <div class="rectangle"></div>
         <div class="rectangle"></div>
     </div>
 
@@ -58,15 +58,17 @@
         ]
 
         // const clientName = window.prompt("Welcome to Colors! Enter company name:");
-        const colorBars = document.querySelectorAll('.rectangle');
-        // Select node lists with .querySelectorAll()
 
         const paletteBtn = document.getElementById('palettebtn');
         const welcomeMsg = document.createElement('h2');
         const toggleBtn = document.createElement('button');
+        const colorBars = document.querySelectorAll('.rectangle');
 
-        paletteBtn.addEventListener('click', (event) => paletteBtn.changePalette);
-        toggleBtn.addEventListener('click', (event) => toggleBtn.toggleTheme);
+        paletteBtn.addEventListener('click', changePalette);
+        toggleBtn.addEventListener('click', toggleTheme);
+        colorBars.forEach(el => {
+            el.addEventListener('mouseover', showInfo);
+        })
 
         const toggleTheme = () => {
             document.querySelector('body').classList.toggle('dark-theme');
@@ -79,6 +81,10 @@
                 bar.style.backgroundColor = "#" + palette[index * 2 + 1];
                 bar.id = palette[index * 2 + 1];
             })
+        }
+
+        const showInfo = () => {
+            // to be implemented
         }
         
         welcomeMsg.textContent = "Welcome" + ' Client' + ", we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.";
