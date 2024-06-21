@@ -83,8 +83,18 @@
             })
         }
 
+        const colorInfo = {
+            charcoal: "hex: E4AC23, cmyk: (22, 5, 122, 43), rgb: (120, 34, 65), family: "Dark Minerals",
+            saffron: "hex: 64B2C0, cmyk: (23, 121, 43, 45), rgb: (12, 223, 67), family: "Pale Yellows",
+            // ...
+        };
+
         const showInfo = () => {
-            // to be implemented
+            // create a floating element
+            // position it next to the mouse, insert into document
+            // select this new floating box as "infoBox"
+            // get info from the object using the element id, update text
+            infoBox.textContent = colorInfo[event.target.id];
         }
         
         welcomeMsg.textContent = "Welcome" + ' Client' + ", we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.";
