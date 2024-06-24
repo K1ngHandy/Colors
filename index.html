@@ -55,7 +55,7 @@
 
         // const clientName = window.prompt("Welcome to Colors! Enter company name:");
 
-        const paletteBtn = document.getElementById('palettebtn');
+        const paletteBtn = document.getElementById('paletteBtn');
         const welcomeMsg = document.createElement('h2');
         const toggleBtn = document.createElement('button');
         const colorBars = document.querySelectorAll('.rectangle');
@@ -79,9 +79,20 @@
             })
         }
 
+        <a id="resources" href="https://en.wikipedia.org/wiki/Color_science" id="home-link">Additional Resources</a>
+
+        const externalLink = document.querySelector('#resources');
+        externalLink.addEventListener('click', displayMessage);
+
+        const displayMessage = (event) => {
+            event.preventDefault();
+            window.alert("You will be redirected to a third party website");
+            window.open(externalLink.href, '_blank');
+        }
+
         const colorInfo = {
-            charcoal: "hex: E4AC23, cmyk: (22, 5, 122, 43), rgb: (120, 34, 65), family: "Dark Minerals",
-            saffron: "hex: 64B2C0, cmyk: (23, 121, 43, 45), rgb: (12, 223, 67), family: "Pale Yellows",
+            charcoal: "hex: E4AC23, cmyk: (22, 5, 122, 43), rgb: (120, 34, 65), family: Dark Minerals",
+            saffron: "hex: 64B2C0, cmyk: (23, 121, 43, 45), rgb: (12, 223, 67), family: Pale Yellows",
             // ...
         };
 
@@ -116,10 +127,11 @@
             .querySelector('h1')
             .insertAdjacentElement('afterend', welcomeMsg);
         document
-            .querySelector('#palettebtn')
+            .querySelector('#paletteBtn')
             .insertAdjacentElement('beforebegin', toggleBtn);
-        
-        changePalette();
+        document
+            .querySelector('#toggleBtn')
+            .insertAdjacentElement('afterend', externalLink);
     </script>
 </body>
 </html>
