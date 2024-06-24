@@ -18,17 +18,25 @@
             color: white;
             text-shadow: 1px 1px black;
         }
-
         .dark-theme {
             background-color: black;
             color: white;
+        }
+        #info-box {
+            position: fixed;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 5px;
+            z-index: 1000;
+            display: none;
         }
     </style>
 </head>
 <body>
     <h1>Colors Palette Selector</h1>
-    <button type="button" id="palettebtn">Dark Theme OFF</button>
+    <button type="button" id="toggleBtn">Dark Theme OFF</button>
     <button type="button" id="paletteBtn">Change Palette</button>
+    <a id="home-link" class="resources" href="https://en.wikipedia.org/wiki/Color_science">Additional Resources</a>
     <div class="container">
         <div class="rectangle"></div>
         <div class="rectangle"></div>
@@ -36,6 +44,7 @@
         <div class="rectangle"></div>
         <div class="rectangle"></div>
     </div>
+    <div id="info-box"></div>
 
     <script>
         const containerNode = document.querySelector('.container');
@@ -52,37 +61,58 @@
         "Burnt sienna",
         "e76f51",
         ]
-
-        // const clientName = window.prompt("Welcome to Colors! Enter company name:");
-
-        const paletteBtn = document.getElementById('paletteBtn');
+        
+        // elements
+        const clientName = window.prompt("Welcome to Colors! Enter company name:");
+        console.log(clientName);
         const welcomeMsg = document.createElement('h2');
-        const toggleBtn = document.createElement('button');
+
+        // queries
+        const toggleBtn = document.querySelector('#toggleBtn');
+        const paletteBtn = document.querySelector('#paletteBtn');
         const colorBars = document.querySelectorAll('.rectangle');
+        const hover = document.querySelectorAll('.rectangle');
+        const infoBox = document.querySelector('#info-box');
+        const externalLink = document.querySelector('.resources');
 
-        paletteBtn.addEventListener('click', changePalette);
-        toggleBtn.addEventListener('click', toggleTheme);
-        colorBars.forEach(el => {
-            el.addEventListener('mouseover', showInfo);
-        })
+        // properties
+        welcomeMsg.textContent = clientName ? `Welcome ${clientName}, we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.` : `Welcome, we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.`
+        welcomeMsg.style.border = "1px solid grey";
+        welcomeMsg.style.padding = "0.5em";
 
+        // functions
         const toggleTheme = () => {
             document.querySelector('body').classList.toggle('dark-theme');
+            toggleBtn.textContent = document.querySelector('body').classList.contains('dark-theme') ? 'Dark Theme OFF' : 'Dark Theme ON';
         }
-        
         const changePalette = () => {
             colorBars.forEach((bar, index) => {
                 bar.textContent = palette[index * 2];
-                bar.title = palette[index * 2] + "- #" + palette[index * 2 + 1];
-                bar.style.backgroundColor = "#" + palette[index * 2 + 1];
+                bar.title = `${palette[index * 2]} - #${palette[index * 2 + 1]}`;
+                bar.style.backgroundColor = `#${palette[index * 2 + 1]}`;
                 bar.id = palette[index * 2 + 1];
-            })
+            });
+        };
+
+        const showInfo = (event) => {
+            const colorId = event.target.id.toLowerCase();
+            const colorData = colorInfo[colorId];
+            if (colorData) {
+                infoBox.innerHTML = `<strong>${palette.find(color => color.toLowerCase().replace(' ', '') === colorId)}</strong>: ${colorData}`;
+                infoBox.style.display = 'block';
+                infoBox.style.top = `${event.pageY + 10}px`;
+                infoBox.style.left = `${event.pageX + 10}px`;
+            } else {
+                infoBox.textContent = 'No information available';
+                infoBox.style.display = 'block';
+                infoBox.style.top = `${event.pageY + 10}px`;
+                infoBox.style.left = `${event.pageX + 10}px`;
+            }
         }
 
-        <a id="resources" href="https://en.wikipedia.org/wiki/Color_science" id="home-link">Additional Resources</a>
-
-        const externalLink = document.querySelector('#resources');
-        externalLink.addEventListener('click', displayMessage);
+        const hideInfo = () => {
+            infoBox.style.display = 'none';
+        }
 
         const displayMessage = (event) => {
             event.preventDefault();
@@ -91,47 +121,31 @@
         }
 
         const colorInfo = {
-            charcoal: "hex: E4AC23, cmyk: (22, 5, 122, 43), rgb: (120, 34, 65), family: Dark Minerals",
-            saffron: "hex: 64B2C0, cmyk: (23, 121, 43, 45), rgb: (12, 223, 67), family: Pale Yellows",
-            // ...
+            "264653": "Charcoal: hex: #264653, cmyk: (78, 55, 64, 56), rgb: (38, 70, 83), family: Dark Minerals",
+            "2a9d8f": "Persian green: hex: #2a9d8f, cmyk: (76, 0, 33, 38), rgb: (42, 157, 143), family: Greens",
+            "e9c46a": "Saffron: hex: #e9c46a, cmyk: (0, 18, 64, 9), rgb: (233, 196, 106), family: Yellows",
+            "f4a261": "Sandy brown: hex: #f4a261, cmyk: (0, 35, 39, 4), rgb: (244, 162, 97), family: Oranges",
+            "e76f51": "Burnt sienna: hex: #e76f51, cmyk: (0, 47, 60, 9), rgb: (231, 111, 81), family: Reds"
         };
 
-        const showInfo = () => {
-            // create a floating element
-            // position it next to the mouse, insert into document
-            // select this new floating box as "infoBox"
-            // get info from the object using the element id, update text
-            infoBox.textContent = colorInfo[event.target.id];
-        }
-        
-        welcomeMsg.textContent = "Welcome" + ' Client' + ", we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.";
-        welcomeMsg.style.border = "1px solid grey";
-        welcomeMsg.style.padding = "0.5em";
+        // event listeners
+        toggleBtn.addEventListener('click', toggleTheme);
+        paletteBtn.addEventListener('click', changePalette);
+        externalLink.addEventListener('click', displayMessage);
 
-        toggleBtn.textContent = "Dark Theme Off";
-        toggleBtn.id = "toggleBtn";
+        colorBars.forEach(el => {
+            el.addEventListener('mouseover', showInfo);
+            el.addEventListener('mouseout', hideInfo);
+        });
 
-        const infoBox = document.createElement('div');
-        infoBox.setAttribute('id', 'info-box');
-
-        const hover = document.querySelectorAll('.rectangle');
         hover.forEach(rectangle => {
-            rectangle.addEventListener('mouseover', (event) => {
-                const backgroundColor = window.getComputedStyle(event.target).backgroundColor;
-                const color = window.getComputedStyle(event.target).
-                infoBox.textContent = backgroundColor;
-            });
+            rectangle.addEventListener('mouseover', showInfo);
+            rectangle.addEventListener('mouseout', hideInfo);
         });
 
         document
             .querySelector('h1')
             .insertAdjacentElement('afterend', welcomeMsg);
-        document
-            .querySelector('#paletteBtn')
-            .insertAdjacentElement('beforebegin', toggleBtn);
-        document
-            .querySelector('#toggleBtn')
-            .insertAdjacentElement('afterend', externalLink);
     </script>
 </body>
 </html>
