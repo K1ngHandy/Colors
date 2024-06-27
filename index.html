@@ -108,17 +108,17 @@
                 infoBox.style.top = `${event.pageY + 10}px`;
                 infoBox.style.left = `${event.pageX + 10}px`;
             }
-        }
+        };
 
         const hideInfo = () => {
             infoBox.style.display = 'none';
-        }
+        };
 
         const displayMessage = (event) => {
             event.preventDefault();
             window.alert("You will be redirected to a third party website");
             window.open(externalLink.href, '_blank');
-        }
+        };
 
         const shuffleColor = (event) => {
             if (event.deltaY > 0) {
@@ -128,6 +128,12 @@
                 // get previous family color from array/object, update color bar title, color, info box
             }
         };
+
+        const showTarget = (event) => {
+            console.log('target:', event.target.tagName);
+            console.log('currentTarget:', event.currentTarget.tagName);
+            console.log(' ');
+        }
 
         const colorInfo = {
             "264653": "Charcoal: hex: #264653, cmyk: (78, 55, 64, 56), rgb: (38, 70, 83), family: Dark Minerals",
@@ -141,6 +147,9 @@
         toggleBtn.addEventListener('click', toggleTheme);
         paletteBtn.addEventListener('click', changePalette);
         externalLink.addEventListener('click', displayMessage);
+        document.addEventListener('wheel', showTarget);
+        document.querySelector('body').addEventListener('wheel', showTarget);
+        document.querySelector('.container').addEventListener('wheel', showTarget);
 
         colorBars.forEach(el => {
             el.addEventListener('mouseover', showInfo);
