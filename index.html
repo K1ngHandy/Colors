@@ -120,6 +120,15 @@
             window.open(externalLink.href, '_blank');
         }
 
+        const shuffleColor = (event) => {
+            if (event.deltaY > 0) {
+                // get next family color from array/object, update color bar title, color, info box
+            }
+            else if (event.deltaY < 0) {
+                // get previous family color from array/object, update color bar title, color, info box
+            }
+        };
+
         const colorInfo = {
             "264653": "Charcoal: hex: #264653, cmyk: (78, 55, 64, 56), rgb: (38, 70, 83), family: Dark Minerals",
             "2a9d8f": "Persian green: hex: #2a9d8f, cmyk: (76, 0, 33, 38), rgb: (42, 157, 143), family: Greens",
@@ -135,7 +144,7 @@
 
         colorBars.forEach(el => {
             el.addEventListener('mouseover', showInfo);
-            el.addEventListener('mouseout', hideInfo);
+            el.addEventListener('mouseout', shuffleColor);
         });
 
         hover.forEach(rectangle => {
