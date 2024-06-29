@@ -65,7 +65,7 @@
         // elements
         const clientName = window.prompt("Welcome to Colors! Enter company name:");
         console.log(clientName);
-        const welcomeMsg = document.createElement('h2');
+        const welcomeMsg = document.createElement('p');
 
         // queries
         const toggleBtn = document.querySelector('#toggleBtn');
@@ -121,18 +121,25 @@
         };
 
         const shuffleColor = (event) => {
+            event.stopPropagation();
             if (event.deltaY > 0) {
                 // get next family color from array/object, update color bar title, color, info box
+                
             }
             else if (event.deltaY < 0) {
                 // get previous family color from array/object, update color bar title, color, info box
+
             }
         };
 
         const showTarget = (event) => {
-            console.log('target:', event.target.tagName);
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // console.logs
+            // console.log('target:', event.target.tagName);
             console.log('currentTarget:', event.currentTarget.tagName);
-            console.log(' ');
+            // console.log(' ');
         }
 
         const colorInfo = {
@@ -161,9 +168,9 @@
             rectangle.addEventListener('mouseout', hideInfo);
         });
 
-        document
-            .querySelector('h1')
-            .insertAdjacentElement('afterend', welcomeMsg);
+        // document
+        //     .querySelector('h1')
+            // .insertAdjacentElement('afterend', welcomeMsg);
     </script>
 </body>
 </html>
