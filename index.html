@@ -6,6 +6,8 @@
         .container {
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .rectangle {
             border: 1px solid black;
@@ -29,6 +31,9 @@
             padding: 5px;
             z-index: 1000;
             display: none;
+        }
+        #welcomeMessage {
+            text-align: center;
         }
     </style>
 </head>
@@ -66,6 +71,7 @@
         const clientName = window.prompt("Welcome to Colors! Enter company name:");
         console.log(clientName);
         const welcomeMsg = document.createElement('p');
+        const container = document.createElement('div');
 
         // queries
         const toggleBtn = document.querySelector('#toggleBtn');
@@ -79,6 +85,7 @@
         welcomeMsg.textContent = clientName ? `Welcome ${clientName}, we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.` : `Welcome, we are excited to help you choose the perfect palette! Use the button to shuffle through some beautiful color combinations.`
         welcomeMsg.style.border = "1px solid grey";
         welcomeMsg.style.padding = "0.5em";
+        welcomeMsg.id = 'welcome-message';
 
         // functions
         const toggleTheme = () => {
@@ -124,12 +131,16 @@
             event.stopPropagation();
             if (event.deltaY > 0) {
                 // get next family color from array/object, update color bar title, color, info box
-                
+                currentIndex = (currentIndex + 1) % palette.length;
             }
             else if (event.deltaY < 0) {
                 // get previous family color from array/object, update color bar title, color, info box
-
+                currentIndex = (currentIndex - 1 + palette.length) % palette.length;
             }
+
+            const currentColor = palette[currentIndex];
+            document.querySelector('#colorBar').style.backgroundColor = currentColor.hex;
+            document.querySelector('#colorTitle').innerHTML = currentColor.hex;
         };
 
         const showTarget = (event) => {
@@ -137,7 +148,7 @@
             event.stopPropagation();
             
             // console.logs
-            // console.log('target:', event.target.tagName);
+            console.log('target:', event.target.tagName);
             console.log('currentTarget:', event.currentTarget.tagName);
             // console.log(' ');
         }
@@ -159,7 +170,7 @@
         document.querySelector('.container').addEventListener('wheel', showTarget);
 
         colorBars.forEach(el => {
-            el.addEventListener('mouseover', showInfo);
+            // el.addEventListener('mouseover', showInfo);
             el.addEventListener('mouseout', shuffleColor);
         });
 
@@ -168,9 +179,9 @@
             rectangle.addEventListener('mouseout', hideInfo);
         });
 
-        // document
-        //     .querySelector('h1')
-            // .insertAdjacentElement('afterend', welcomeMsg);
+        document
+            .querySelector('h1')
+            .insertAdjacentElement('afterend', welcomeMsg);
     </script>
 </body>
 </html>
