@@ -6,8 +6,6 @@
         .container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
         .rectangle {
             border: 1px solid black;
@@ -23,17 +21,6 @@
         .dark-theme {
             background-color: #2b2b2b;
             color: #d3d3d3;
-        }
-        #info-box {
-            position: fixed;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 5px;
-            z-index: 1000;
-            display: none;
-        }
-        #welcomeMessage {
-            text-align: center;
         }
     </style>
 </head>
@@ -53,131 +40,68 @@
 
     <script>
         const palette = [
-        "Charcoal", "264653",
-        "Persian green", "2a9d8f",
-        "Saffron", "e9c46a",
-        "Sandy brown", "f4a261",
-        "Burnt sienna", "e76f51",
-        ]
-        
-        // elements
-        const clientName = window.prompt("Welcome to Colors! Enter company name:");
-        const welcomeMsg = document.createElement('p');
-        // const container = document.createElement('div');
+            {
+                name: "Charcoal",
+                hex: "264653",
+                cmyk: "(22, 5, 122, 43)",
+                rgb: "(120, 34, 65)",
+                family: "Dark Minerals",
+            },
+            {
+                name: "Persian green", 
+                hex: "2a9d8f",
+            },
+            {
+                name: "Saffron",
+                hex: "e9c46a",
+                cmyk: "(23, 121, 43, 45)",
+                rgb: "(12, 223, 67)",
+                family: "Pale Yellows",
+            },
+            {
+                name: "Sandy brown",
+                hex: "f4a261",
+            },
+            {
+                name: "Burnt sienna",
+                hex: "e76f51",
+            },
+        ];
 
-        // queries
-        // const containerNode = document.querySelector('.container');
-        const toggleBtn = document.querySelector('#toggleBtn');
+        const containerNode = document.querySelector('.container');
         const paletteBtn = document.querySelector('#paletteBtn');
+        const toggleBtn = document.querySelector('#toggleBtn');
         const colorBars = document.querySelectorAll('.rectangle');
-        const hover = document.querySelectorAll('.rectangle');
-        const infoBox = document.querySelector('#info-box');
-        const externalLink = document.querySelector('.resources');
-        // const pContainer = document.createElement('div');
+        const welcomeMsg = document.createElement('h2');
 
         // properties
-        welcomeMsg.textContent = clientName ? `Welcome ${clientName}, we are excited to help you choose the perfect palette!`;
+        welcomeMsg.textContent = 'Welcome, we are excited to help you choose the perfect palette!';
         welcomeMsg.style.border = "1px solid grey";
         welcomeMsg.style.padding = "0.5em";
-        welcomeMsg.id = 'welcome-message';
-
-        // pContainer.id = 'p-conatainer';
 
         // functions
         const toggleTheme = () => {
             document.querySelector('body').classList.toggle('dark-theme');
-            toggleBtn.textContent = document.querySelector('body').classList.contains('dark-theme') ? 'Dark Theme OFF' : 'Dark Theme ON';
+            toggleBtn.textContent == "Dark Theme OFF" ? toggleBtn.textContent = 'Dark Theme ON' : toggleBtn.textContent = 'Dark Theme OFF';
         }
         const changePalette = () => {
             colorBars.forEach((bar, index) => {
-                bar.textContent = palette[index * 2];
-                bar.title = `${palette[index * 2]} - #${palette[index * 2 + 1]}`;
-                bar.style.backgroundColor = `#${palette[index * 2 + 1]}`;
-                bar.id = palette[index * 2 + 1];
+                bar.textContent = palette[index.name];
+                bar.title = palette[index].family + 
+                " - HEX: 0x" + palette[index].hex + 
+                " - CMYK: " + palette[index].cmyk + 
+                " - RGB: " + palette[index].rgb;
+                bar.style.backgroundColor = "#" + palette[index].hex;
+                bar.id = palette[index * 1];
             });
         };
 
-        const showInfo = (event) => {
-            const colorId = event.target.id;
-            const colorData = colorInfo[colorId];
-            if (colorData) {
-                infoBox.innerHTML = `<strong>${palette.find(color => color.toLowerCase().replace(' ', '') === colorId)}</strong>: ${colorData}`;
-                infoBox.style.display = 'block';
-                infoBox.style.top = `${event.pageY + 10}px`;
-                infoBox.style.left = `${event.pageX + 10}px`;
-            } else {
-                infoBox.textContent = 'No information available';
-                infoBox.style.display = 'block';
-                infoBox.style.top = `${event.pageY + 10}px`;
-                infoBox.style.left = `${event.pageX + 10}px`;
-            }
-        };
-
-        const hideInfo = () => {
-            infoBox.style.display = 'none';
-        };
-
-        const displayMessage = (event) => {
-            event.preventDefault();
-            window.open(externalLink.href, '_blank');
-        };
-
-        let currentIndex = 0;
-        const shuffleColor = (event) => {
-            event.stopPropagation();
-            if (event.deltaY > 0) {
-                // get next family color from array/object, update color bar title, color, info box
-                currentIndex = (currentIndex + 1) % palette.length;
-            } else if (event.deltaY < 0) {
-                // get previous family color from array/object, update color bar title, color, info box
-                currentIndex = (currentIndex - 1 + palette.length) % palette.length;
-            }
-
-            const currentColor = palette[currentIndex];
-            document.querySelector('#colorBar').style.backgroundColor = currentColor.hex;
-            document.querySelector('#colorTitle').innerHTML = currentColor.hex;
-        };
-
-        const showTarget = (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            
-            // console.logs
-            console.log('target:', event.target.tagName);
-            console.log('currentTarget:', event.currentTarget.tagName);
-            // console.log(' ');
-        }
-
-        const colorInfo = {
-            "264653": "Charcoal: hex: #264653, cmyk: (78, 55, 64, 56), rgb: (38, 70, 83), family: Dark Minerals",
-            "2a9d8f": "Persian green: hex: #2a9d8f, cmyk: (76, 0, 33, 38), rgb: (42, 157, 143), family: Greens",
-            "e9c46a": "Saffron: hex: #e9c46a, cmyk: (0, 18, 64, 9), rgb: (233, 196, 106), family: Yellows",
-            "f4a261": "Sandy brown: hex: #f4a261, cmyk: (0, 35, 39, 4), rgb: (244, 162, 97), family: Oranges",
-            "e76f51": "Burnt sienna: hex: #e76f51, cmyk: (0, 47, 60, 9), rgb: (231, 111, 81), family: Reds"
-        };
-
         // event listeners
-        toggleBtn.addEventListener('click', toggleTheme);
         paletteBtn.addEventListener('click', changePalette);
-        externalLink.addEventListener('click', displayMessage);
+        toggleBtn.addEventListener('click', toggleTheme);
 
-        // // console.logs
-        // document.addEventListener('wheel', showTarget);
-        // document.querySelector('body').addEventListener('wheel', showTarget);
-        // document.querySelector('.container').addEventListener('wheel', showTarget);
-
-        colorBars.forEach(el => {
-            // el.addEventListener('mouseover', showInfo);
-            el.addEventListener('mouseout', shuffleColor);
-        });
-
-        hover.forEach(rectangle => {
-            rectangle.addEventListener('mouseover', showInfo);
-            rectangle.addEventListener('mouseout', hideInfo);
-        });
-
-        document.querySelector('h1').insertAdjacentElement('afterend', container);
-        document.querySelector('#pContainer').appendChild(welcomeMsg);
+        document.querySelector('h1').insertAdjacentElement('afterend', welcomeMsg);
+        document.querySelector('#paletteBtn').insertAdjacentElement('beforebegin', toggleBtn);
     </script>
 </body>
 </html>
