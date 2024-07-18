@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+.rectangle {
+    border: 1px solid black;
+    margin: 2px;
+    width: 10vw;
+    height: 50vh;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px black;
+}
+.dark-theme {
+    background-color: #2b2b2b;
+    color: #d3d3d3;
+}
