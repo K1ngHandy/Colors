@@ -29,7 +29,6 @@
 
         const containerNode = document.querySelector('.container');
         const paletteBtn = document.querySelector('#paletteBtn');
-        const toggleBtn = document.querySelector('#toggleBtn');
         const colorBars = document.querySelectorAll('.rectangle');
         const welcomeMsg = document.createElement('h2');
 
@@ -38,11 +37,7 @@
         welcomeMsg.style.border = "1px solid grey";
         welcomeMsg.style.padding = "0.5em";
 
-        // functions
-        const toggleTheme = () => {
-            document.querySelector('body').classList.toggle('dark-theme');
-            toggleBtn.textContent == "Dark Theme OFF" ? toggleBtn.textContent = 'Dark Theme ON' : toggleBtn.textContent = 'Dark Theme OFF';
-        }
+        // handlers
         const changePalette = () => {
             colorBars.forEach((bar, index) => {
                 bar.textContent = palette[index.name];
@@ -57,7 +52,8 @@
 
         // event listeners
         paletteBtn.addEventListener('click', changePalette);
-        toggleBtn.addEventListener('click', toggleTheme);
 
         document.querySelector('h1').insertAdjacentElement('afterend', welcomeMsg);
+        const toggleBtn = createDarkThemeBtn();
         document.querySelector('#paletteBtn').insertAdjacentElement('beforebegin', toggleBtn);
+        changePalette();
