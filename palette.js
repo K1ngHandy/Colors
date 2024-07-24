@@ -38,7 +38,4 @@ function createPalette (id_number) {
 	return palette;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-	const paletteDiv = createPalette();
-	document.body.appendChild(paletteDiv);
-})
+createPalette();

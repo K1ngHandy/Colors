@@ -12,8 +12,3 @@ function createDarkThemeBtn() {
     toggleBtn.addEventListener('click', toggleTheme);
     return toggleBtn;
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    const button = createDarkThemeBtn();
-    document.body.appendChild(button)
-})
