@@ -22,7 +22,7 @@ function createPalette (id_number) {
 	paletteBtn.addEventListener('click', () => {
 		changePalette(id_number);
 	})
-	paletteBtn.appendChild(paletteBtn);
+	palette.appendChild(paletteBtn);
 
 	const container = document.createElement('div');
 	container.id = "container" + id_number;

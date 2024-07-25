@@ -12,3 +12,4 @@ function createDarkThemeBtn() {
     toggleBtn.addEventListener('click', toggleTheme);
     return toggleBtn;
 }
+createDarkThemeBtn();
