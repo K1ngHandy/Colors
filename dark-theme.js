@@ -1,4 +1,4 @@
-function createDarkThemeBtn() {
+const createDarkThemeBtn = () => {
     const toggleBtn = document.createElement('button');
     toggleBtn.textContent = "Dark Theme OFF";
     const toggleTheme = () => {
@@ -12,4 +12,9 @@ function createDarkThemeBtn() {
     toggleBtn.addEventListener('click', toggleTheme);
     return toggleBtn;
 }
-createDarkThemeBtn();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const parent = document.querySelector('#palette-container');
+    const button = createDarkThemeBtn();
+    parent.insertAdjacentElement('beforebegin', button);
+})
