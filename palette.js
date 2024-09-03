@@ -72,3 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	const paletteElem = createPalette(1, palette);
 	paletteContainer.appendChild(paletteElem);
 })
+
+const async initializePalettes = (url) => {
+	// use async function to fetch JSON
+	// const fetchPromise = 
+	// fetchPromise
+	// 	.then()
+	// 	.then()
+	// 	.catch()
+	// async/await function
+	await
+	await
+	updateBars()
+}
