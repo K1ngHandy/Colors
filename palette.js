@@ -73,15 +73,25 @@ document.addEventListener('DOMContentLoaded', () => {
 	paletteContainer.appendChild(paletteElem);
 })
 
-const async initializePalettes = (url) => {
-	// use async function to fetch JSON
-	// const fetchPromise = 
-	// fetchPromise
-	// 	.then()
-	// 	.then()
-	// 	.catch()
-	// async/await function
-	await
-	await
-	updateBars()
+async function fetchPalettes(url) {
+	try {
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const data = await response.json();
+
+		data.forEach(palette => {
+			const map = palette.map((color, index) => {
+				return { id: index, ...color };
+			});
+			console.log(map);
+		});
+		
+		createPalette(map);
+	} catch (error) {
+		console.error(`Error fetching data:`, error);
+	}
 }
+fetchPalettes('https://webapis.bloomtechdev.com/palettes');
