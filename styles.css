@@ -1,8 +1,9 @@
-.container {
+#palette-container {
     display: flex;
     justify-content: center;
 }
 .rectangle {
+    display: flex;
     border: 1px solid black;
     margin: 2px;
     width: 10vw;

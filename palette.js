@@ -1,97 +1,33 @@
-const changePalette = (id_number, palette) => {
-	const colorBars = document.querySelectorAll('#palette${id_number} .rectangle');
+const changePalette = (palette) => {
+	const colorBars = document.querySelectorAll(`.rectangle`);
+
 	colorBars.forEach((bar, index) => {
-        bar.textContent = palette[index.name];
-        bar.title = palette[index].family + 
-        " - HEX: 0x" + palette[index].hex + 
-        " - CMYK: " + palette[index].cmyk + 
-        " - RGB: " + palette[index].rgb;
-        bar.style.backgroundColor = "#" + palette[index].hex;
-        bar.id = palette[index].id;
+		const color = palette[index];
+		if (color) {
+			bar.textContent = color.name;
+			bar.title = `${color.family || ''} - HEX: #${color.hex} - CMYK: ${color.cmyk || ''} - RGB: ${color.rgb || ''}`;
+			bar.style.backgroundColor = `#${color.hex}`;
+			bar.id = color.id;
+		} else {
+			bar.textContent = '';
+			bar.title = '';
+			bar.style.backgroundColor = 'none';
+			bar.id = '';
+		}
     });
 }
 
-function createPalette (id_number, palette) {
-	const paletteElem = document.createElement('div');
-	paletteElem.id = "palette" + id_number;
-	paletteElem.classList.add('palette');
-
-	const paletteBtn = document.createElement('button');
-	paletteBtn.id = "paletteBtn" + id_number;
-	paletteBtn.classList.add('paletteBtn');
-	paletteBtn.innerText = "Change Palette";
-	paletteBtn.addEventListener('click', () => {
-		changePalette(id_number, palette);
-	})
-	paletteElem.appendChild(paletteBtn);
-
-	const container = document.createElement('div');
-	container.id = "container" + id_number;
-	container.classList.add('container');
-	paletteElem.appendChild(container);
-
-	for (let i = 1; i <= 5; i++) {
-		const rectangle = document.createElement('div');
-		rectangle.id = id_number + "rectangle" + i;
-		rectangle.classList.add('rectangle');
-		paletteElem.appendChild(rectangle);
-	}
-	return paletteElem;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
+const createPalette = (palette) => {
 	const paletteContainer = document.querySelector('#palette-container');
-	const palette = [
-		{
-			name: "Charcoal",
-			hex: "264653",
-			cmyk: "(22, 5, 122, 43)",
-			rgb: "(120, 34, 65)",
-			family: "Dark Minerals",
-		},
-		{
-			name: "Persian green", 
-			hex: "2a9d8f",
-		},
-		{
-			name: "Saffron",
-			hex: "e9c46a",
-			cmyk: "(23, 121, 43, 45)",
-			rgb: "(12, 223, 67)",
-			family: "Pale Yellows",
-		},
-		{
-			name: "Sandy brown",
-			hex: "f4a261",
-		},
-		{
-			name: "Burnt sienna",
-			hex: "e76f51",
-		},
-	];
-	const paletteElem = createPalette(1, palette);
-	paletteContainer.appendChild(paletteElem);
-})
+	paletteContainer.innerHTML = '';
 
-async function fetchPalettes(url) {
-	try {
-		const response = await fetch(url);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
-		const data = await response.json();
-
-		data.forEach(palette => {
-			const map = palette.map((color, index) => {
-				return { id: index, ...color };
-			});
-			console.log(map);
-		});
-		
-		createPalette(map);
-	} catch (error) {
-		console.error(`Error fetching data:`, error);
+	const colors = palette.length;
+	for (let i = 1; i < colors; i++) {
+		const rectangle = document.createElement('div');
+		rectangle.classList.add('rectangle');
+		paletteContainer.appendChild(rectangle);
 	}
+	return paletteContainer;
 }
-fetchPalettes('https://webapis.bloomtechdev.com/palettes');
+
+export { createPalette, changePalette };
