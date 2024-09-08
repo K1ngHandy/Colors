@@ -3,15 +3,16 @@ const changePalette = (palette) => {
 
 	colorBars.forEach((bar, index) => {
 		const color = palette[index];
-		if (color) {
+
+		if (color && color.hex) {
 			bar.textContent = color.name;
-			bar.title = `${color.family || ''} - HEX: #${color.hex} - CMYK: ${color.cmyk || ''} - RGB: ${color.rgb || ''}`;
-			bar.style.backgroundColor = `#${color.hex}`;
-			bar.id = color.id;
+			bar.title = `${color.name || 'Unknown'} - ${color.hex || ''}`;
+			bar.style.backgroundColor = `${color.hex}`;
+			bar.id = color.id || `color-${index}`;
 		} else {
-			bar.textContent = '';
+			bar.textContent = 'No color';
 			bar.title = '';
-			bar.style.backgroundColor = 'none';
+			bar.style.backgroundColor = '';
 			bar.id = '';
 		}
     });
@@ -21,13 +22,11 @@ const createPalette = (palette) => {
 	const paletteContainer = document.querySelector('#palette-container');
 	paletteContainer.innerHTML = '';
 
-	const colors = palette.length;
-	for (let i = 1; i < colors; i++) {
+	palette.forEach(() => {
 		const rectangle = document.createElement('div');
 		rectangle.classList.add('rectangle');
 		paletteContainer.appendChild(rectangle);
-	}
-	return paletteContainer;
-}
+	});
+};
 
 export { createPalette, changePalette };

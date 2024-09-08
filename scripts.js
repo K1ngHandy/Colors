@@ -20,14 +20,13 @@ async function fetchPalettes(url) {
     } catch (error) {
         console.error(`Error fetching data:`, error);
     }
-    console.log('Palettes', palettes);
     return palettes;
 }
 
 const handleChange = () => {
     if (palettes.length > 0) {
         const palette = palettes[currentPaletteIndex];
-        changePalette[palette];
+        changePalette(palette);
 
         currentPaletteIndex = (currentPaletteIndex + 1) % palettes.length;
     } else {
@@ -35,36 +34,30 @@ const handleChange = () => {
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('h1').insertAdjacentElement('afterend', welcomeMsg);
     const paletteContainer = document.querySelector('#palette-container');
 
-    const palette = [
+    const defaultPalette = [
 		{
 			name: "Charcoal",
-			hex: "264653",
-			cmyk: "(22, 5, 122, 43)",
-			rgb: "(120, 34, 65)",
-			family: "Dark Minerals",
+			hex: "#264653",
 		},
 		{
 			name: "Persian green", 
-			hex: "2a9d8f",
+			hex: "#2a9d8f",
 		},
 		{
 			name: "Saffron",
-			hex: "e9c46a",
-			cmyk: "(23, 121, 43, 45)",
-			rgb: "(12, 223, 67)",
-			family: "Pale Yellows",
+			hex: "#e9c46a",
 		},
 		{
 			name: "Sandy brown",
-			hex: "f4a261",
+			hex: "#f4a261",
 		},
 		{
 			name: "Burnt sienna",
-			hex: "e76f51",
+			hex: "#e76f51",
 		},
 	];
     
@@ -76,8 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const darkThemeBtn = createDarkThemeBtn();
     paletteContainer.insertAdjacentElement('beforebegin', darkThemeBtn);
 
-    const paletteDiv = createPalette(palette);
-	paletteContainer.appendChild(paletteDiv);
+    createPalette(defaultPalette);
+    changePalette(defaultPalette);
 
-    fetchPalettes('https://webapis.bloomtechdev.com/palettes');
+    await fetchPalettes('https://webapis.bloomtechdev.com/palettes');
 })
