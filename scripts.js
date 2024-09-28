@@ -1,5 +1,6 @@
 import { createPalette, changePalette } from './palette.js';
 import { createDarkThemeBtn } from './dark-theme.js';
+import { spinner } from './spinner.js';
 
 let currentPaletteIndex = 0;
 let palettes = [];
@@ -21,10 +22,14 @@ async function fetchPalettes(url) {
     //     console.error(`Error fetching data:`, error);
     // }
 
+    spinner();
     // axios
     axios.get(url)
         .then(response => palettes = response.data)
-        .catch(response => response.error);
+        .catch(response => response.error)
+        .finally(() => {
+            spinner.classList.remove('spinner');
+        })
 
     return palettes;
 }
@@ -69,6 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const changePaletteBtn = document.createElement('button');
     changePaletteBtn.textContent = "Change Palette";
+    changePaletteBtn.id = 'fetch';
     changePaletteBtn.addEventListener('click', handleChange);
     paletteContainer.insertAdjacentElement('beforebegin', changePaletteBtn);
     
