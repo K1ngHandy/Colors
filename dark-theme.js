@@ -1,6 +1,7 @@
 export const createDarkThemeBtn = () => {
     const toggleBtn = document.createElement('button');
     toggleBtn.textContent = "Dark Theme ON";
+    toggleBtn.classList.add('dark-theme-btn');
 
     const toggleTheme = () => {
         document.querySelector('body').classList.toggle('dark-theme');

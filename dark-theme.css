@@ -6,3 +6,10 @@
 .dark-theme .rectangle {
   border: 1px solid #d3d3d3;
 }
+
+.dark-theme-btn {
+  width: 120px;
+  height: 30px;
+  border-radius: 21px;
+  margin: 9px 3px;
+}

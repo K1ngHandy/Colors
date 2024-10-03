@@ -11,17 +11,6 @@ welcomeMsg.style.border = "1px solid grey";
 welcomeMsg.style.padding = "0.5em";
 
 async function fetchPalettes(url) {
-    // try {
-    //     const response = await fetch(url);
-
-    //     if (!response.ok) {
-    //         throw new Error(`HTTP error! status: ${response.status}`);
-    //     }
-    //     palettes = await response.json();
-    // } catch (error) {
-    //     console.error(`Error fetching data:`, error);
-    // }
-
     spinner();
     // axios
     axios.get(url)
@@ -29,10 +18,11 @@ async function fetchPalettes(url) {
         .catch(response => response.error)
         .finally(() => {
             spinner.classList.remove('spinner');
+            console.log('Finally');
         })
 
     return palettes;
-}
+};
 
 const handleChange = () => {
     if (palettes.length > 0) {
